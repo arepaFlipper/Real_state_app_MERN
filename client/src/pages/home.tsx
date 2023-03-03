@@ -5,19 +5,21 @@ import { PieChart, PropertyReferrals, TotalRevenue, PropertyCard, TopAgent } fro
 
 const Home = () => {
   return (
-    <div style={{ backgroundColor: "#EBECFD" }}>
-      <Box>
-        <Typography fontSize={25} fontWeight={700} color="#11142D">
-          Dashboard
-        </Typography>
-        <Box mt="20px" display="flex" flexWrap="wrap" gap={4}>
-          <PieChart title="Properties for Sale" value={684} series={[75, 25]} colors={['#475be8', '#e4a8ef']} />
-          <PieChart title="Properties for Rent" value={550} series={[60, 40]} colors={['#475ae8', '#e4b8ef']} />
-          <PieChart title="Total customers" value={5684} series={[73, 24]} colors={['#275ae8', '#c4b8ef']} />
-          <PieChart title="Properties for Cities" value={555} series={[74, 26]} colors={['#475ae8', '#e4b8ef']} />
-        </Box>
+    <Box style={{ backgroundColor: "#EBECFD" }}>
+      <Typography fontSize={25} fontWeight={700} color="#11142D">
+        Dashboard
+      </Typography>
+      <Box mt="20px" display="flex" flexWrap="wrap" gap={4}>
+        <PieChart title="Properties for Sale" value={684} series={[75, 25]} colors={['#475be8', '#e4a8ef']} />
+        <PieChart title="Properties for Rent" value={550} series={[60, 40]} colors={['#475ae8', '#e4b8ef']} />
+        <PieChart title="Total customers" value={5684} series={[73, 24]} colors={['#275ae8', '#c4b8ef']} />
+        <PieChart title="Properties for Cities" value={555} series={[74, 26]} colors={['#475ae8', '#e4b8ef']} />
       </Box>
-    </div>
+      <Stack mt="25px" width="100%" direction={{ xs: 'column', lg: 'row' }}>
+        <TotalRevenue />
+        <PropertyReferrals />
+      </Stack>
+    </Box>
   )
 }
 
