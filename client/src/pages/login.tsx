@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useLogin } from "@pankod/refine-core";
 import { Container, Box } from "@pankod/refine-mui";
+import { yariga } from "../assets";
 
 import { CredentialResponse } from "../interfaces/google";
 
@@ -41,10 +42,7 @@ export const Login: React.FC = () => {
   return (
     <Box
       component="div"
-      sx={{
-        background: `radial-gradient(50% 50% at 50% 50%, #63386A 0%, #310438 100%)`,
-        backgroundSize: "cover",
-      }}
+      sx={{ backgroundColor: '#FCFCFC', }}
     >
       <Container
         component="main"
@@ -65,7 +63,7 @@ export const Login: React.FC = () => {
           }}
         >
           <div>
-            <img src="./refine.svg" alt="Refine Logo" />
+            <img src={yariga} alt="Yariga Logo" />
           </div>
           <Box mt={4}>
             <GoogleButton />

@@ -1,4 +1,4 @@
 import logo from './logo.svg'
-import yaringa from './yaringa.svg'
+import yariga from './yariga.svg'
 
-export { logo, yaringa }
+export { logo, yariga }
