@@ -6,6 +6,7 @@ const Form = ({ type, register, handleSubmit, handleImageChange, formLoading, on
   const { name_title, onChange_title, onBlur_title, ref_title } = register('title', { required: true });
   const { name_desc, onChange_desc, onBlur_desc, ref_desc } = register('title', { required: true });
   const { name_aparment, onChange_aparment, onBlur_aparment, ref_aparment } = register('aparment', { required: true });
+  const aparment_values = ["aparment", "villa", "farmhouse", "condos", "townhouse", "duplex", "studio", "chalet"];
   return (
     <Box>
       <Typography fontSize={25} fontWeight={700} color="#11142d">
@@ -53,11 +54,17 @@ const Form = ({ type, register, handleSubmit, handleImageChange, formLoading, on
                 required
                 inputProps={{ 'aria-label': 'Without label' }}
                 defaultValue="aparment"
+                style={{ border: "1px solid gray" }}
                 name={name_aparment}
                 onChange={onChange_aparment}
                 onBlur={onBlur_aparment}
                 ref={ref_aparment}
-              ></Select>
+              >{aparment_values.map((val) => {
+                const capitalized = val.charAt(0).toUpperCase() + val.slice(1);
+                return (
+                  <MenuItem value={val}>{capitalized}</MenuItem>
+                )
+              })}</Select>
             </FormControl>
           </Stack>
         </form>
