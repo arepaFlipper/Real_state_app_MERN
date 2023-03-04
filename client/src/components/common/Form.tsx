@@ -6,6 +6,8 @@ const Form = ({ type, register, handleSubmit, handleImageChange, formLoading, on
   const { name_title, onChange_title, onBlur_title, ref_title } = register('title', { required: true });
   const { name_desc, onChange_desc, onBlur_desc, ref_desc } = register('title', { required: true });
   const { name_aparment, onChange_aparment, onBlur_aparment, ref_aparment } = register('aparment', { required: true });
+  const { name_price, onChange_price, onBlur_price, ref_price } = register('price', { required: true });
+  const { name_location, onChange_location, onBlur_location, ref_location } = register('location', { required: true });
   const aparment_values = ["aparment", "villa", "farmhouse", "condos", "townhouse", "duplex", "studio", "chalet"];
   return (
     <Box>
@@ -66,6 +68,61 @@ const Form = ({ type, register, handleSubmit, handleImageChange, formLoading, on
                 )
               })}</Select>
             </FormControl>
+            <FormControl>
+              <FormHelperText sx={{ fontWeight: 500, margin: '10px 0', fontSize: 16, color: '#11142D' }}>Enter property price</FormHelperText>
+              <TextField
+                fullWidth
+                required
+                id="outlined-basic"
+                color="info"
+                type="number"
+                style={{ border: "1px solid gray", borderRadius: "6px" }}
+                variant="outlined"
+                name={name_price}
+                onChange={onChange_price}
+                onBlur={onBlur_price}
+                ref={ref_price}
+              />
+            </FormControl>
+          </Stack>
+          <FormControl>
+            <FormHelperText sx={{ fontWeight: 500, margin: '10px 0', fontSize: 16, color: '#11142D' }}>Enter Location</FormHelperText>
+            <TextField
+              fullWidth
+              required
+              id="outlined-basic"
+              color="info"
+              style={{ border: "1px solid gray", borderRadius: "6px" }}
+              variant="outlined"
+              name={name_location}
+              onChange={onChange_location}
+              onBlur={onBlur_location}
+              ref={ref_location}
+            />
+          </FormControl>
+          <Stack direction="column" gap={1} justifyContent="center" mb={2}>
+            <Stack direction="row" gap={2}>
+              <Typography color="#11142D" fontSize={16} fontWeight={500} my="10px">Property Photo</Typography>
+              <Button component="label" sx={{ width: "fit-content", color: "#2ed480", textTransform: 'capitalize', fontSize: 16 }}>
+                Upload *
+                <input
+                  hidden
+                  accept="image/"
+                  type="file"
+                  onChange={(e) => {
+                    // @ts-ignore
+                    return handleImageChange(e.target.files[0]);
+                  }}
+                />
+              </Button>
+            </Stack>
+            <Typography fontSize={14} color="#808191" sx={{ wordBreak: "break-all" }}>{propertyImage?.name}</Typography>
+            <CustomButton
+              type="submit"
+              title={formLoading ? 'Submitting...' : 'Submit'}
+              backgroundColor="#475be8"
+              color="#FCFCFC"
+            />
           </Stack>
         </form>
       </Box>
