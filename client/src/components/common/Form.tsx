@@ -14,7 +14,7 @@ const Form = ({ type, register, handleSubmit, handleImageChange, formLoading, on
       <Typography fontSize={25} fontWeight={700} color="#11142d">
         {type} a property
       </Typography >
-      <Box mt={2.5} borderRadius="15px" padding="20px" bgcolor="#FCFCFC" >
+      <Box mt={2.5} borderRadius="15px" padding="20px" bgcolor="#FCFCFC"  >
         <form style={{ marginTop: '20px', width: '100%', display: 'flex', flexDirection: 'column', gap: '20px' }} onSubmit={handleSubmit(onFinishHandler)}>
           <FormControl>
             <FormHelperText sx={{ fontWeight: 500, margin: '10px 0', fontSize: 16, color: '#11142D' }}>Enter property name</FormHelperText>
@@ -23,7 +23,7 @@ const Form = ({ type, register, handleSubmit, handleImageChange, formLoading, on
               required
               id="outlined-basic"
               color="info"
-              style={{ border: "1px solid gray", borderRadius: "6px" }}
+              style={{ border: "1px solid gray", background: 'gray', borderRadius: "6px", color: '#919191' }}
               variant="outlined"
               name={name_title}
               onChange={onChange_title}
@@ -35,7 +35,8 @@ const Form = ({ type, register, handleSubmit, handleImageChange, formLoading, on
             <FormHelperText sx={{ fontWeight: 500, margin: '10px 0', fontSize: 16, color: '#11142D' }}>Enter Description</FormHelperText>
             <TextareaAutosize
               minRows={5}
-              required placeholder="Write description"
+              required
+              placeholder="Write description"
               color="info"
               style={{ width: '100%', background: 'transparent', fontSize: '16px', borderColor: 'rgba(0,0,0,0.23)', borderRadius: 6, padding: 10, color: '#919191' }}
               name={name_desc}
@@ -56,7 +57,7 @@ const Form = ({ type, register, handleSubmit, handleImageChange, formLoading, on
                 required
                 inputProps={{ 'aria-label': 'Without label' }}
                 defaultValue="aparment"
-                style={{ border: "1px solid gray" }}
+                style={{ border: "1px solid gray", background: 'gray' }}
                 name={name_aparment}
                 onChange={onChange_aparment}
                 onBlur={onBlur_aparment}
@@ -76,7 +77,7 @@ const Form = ({ type, register, handleSubmit, handleImageChange, formLoading, on
                 id="outlined-basic"
                 color="info"
                 type="number"
-                style={{ border: "1px solid gray", borderRadius: "6px" }}
+                style={{ border: "1px solid gray", borderRadius: "6px", background: 'gray' }}
                 variant="outlined"
                 name={name_price}
                 onChange={onChange_price}
@@ -92,7 +93,7 @@ const Form = ({ type, register, handleSubmit, handleImageChange, formLoading, on
               required
               id="outlined-basic"
               color="info"
-              style={{ border: "1px solid gray", borderRadius: "6px" }}
+              style={{ border: "1px solid gray", borderRadius: "6px", background: 'gray' }}
               variant="outlined"
               name={name_location}
               onChange={onChange_location}
