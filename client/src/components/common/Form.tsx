@@ -62,10 +62,10 @@ const Form = ({ type, register, handleSubmit, handleImageChange, formLoading, on
                 onChange={onChange_aparment}
                 onBlur={onBlur_aparment}
                 ref={ref_aparment}
-              >{aparment_values.map((val) => {
+              >{aparment_values.map((val, idx) => {
                 const capitalized = val.charAt(0).toUpperCase() + val.slice(1);
                 return (
-                  <MenuItem value={val}>{capitalized}</MenuItem>
+                  <MenuItem key={`${val}_${idx}`} value={val}>{capitalized}</MenuItem>
                 )
               })}</Select>
             </FormControl>
