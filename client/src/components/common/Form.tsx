@@ -4,7 +4,7 @@ import CustomButton from './CustomButton';
 
 const Form = ({ type, register, handleSubmit, handleImageChange, formLoading, onFinishHandler, propertyImage }: FormProps) => {
   const { name_title, onChange_title, onBlur_title, ref_title } = register('title', { required: true });
-  const { name_desc, onChange_desc, onBlur_desc, ref_desc } = register('title', { required: true });
+  const { name_desc, onChange_desc, onBlur_desc, ref_desc } = register('description', { required: true });
   const { name_aparment, onChange_aparment, onBlur_aparment, ref_aparment } = register('aparment', { required: true });
   const { name_price, onChange_price, onBlur_price, ref_price } = register('price', { required: true });
   const { name_location, onChange_location, onBlur_location, ref_location } = register('location', { required: true });
