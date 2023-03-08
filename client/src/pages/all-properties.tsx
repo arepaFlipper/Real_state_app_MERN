@@ -1,5 +1,5 @@
 import { Add } from '@mui/icons-material';
-import { useTable, HttpError } from "@pankod/refine-core";
+import { useTable } from "@pankod/refine-core";
 import { Box, Stack, Typography, TextField, Select, MenuItem } from "@pankod/refine-mui";
 import { useNavigate } from "@pankod/refine-react-router-v6";
 import { PropertyCard, CustomButton } from "components";
@@ -43,10 +43,6 @@ const AllProperties = () => {
   const title_handler = (e: React.BaseSyntheticEvent) => {
     setFilters([{ field: 'title', operator: 'contains', value: e.currentTarget.value ? e.currentTarget.value : undefined }])
   }
-  const propertyType_handler = (e: React.BaseSyntheticEvent) => {
-    // @ts-ignore
-    setFilters([{ field: 'propertyType', operator: 'eq', value: e.target.value }, 'replace'])
-  }
   return (
     <Box>
       <Box mt="20px" sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}>
@@ -56,52 +52,51 @@ const AllProperties = () => {
           </Typography>
           <Box mb={2} mt={3} display="flex" width="84%" justifyContent="space-between" flexWrap="wrap">
             <Box display="flex" gap={2} flexWrap="wrap" mb={{ xs: '20px', sm: 0 }}>
-              <CustomButton title={`Sort price ${currentPrice === 'asc' ? '↑' : '↓'}`} handleClick={() => { toggleSort('price') }} backgroundColor="#475be8" color="#FCFCFC" />
+              <CustomButton title={`Sort price ${currentPrice === 'asc' ? '↑' : '↓'}`} handleClick={() => { toggleSort('price') }} backgroundColor="#475BE8" color="#FCFCFC" />
+              <TextField variant="outlined" color="info" placeholder="Search by title" value={currentFilterValues.title}
+                onChange={(e) => { title_handler(e) }}
+              />
+              <Select variant="outlined" color="info" displayEmpty required inputProps={{ 'aria-label': 'Without label' }} defaultValue="" value={currentFilterValues.propertyType}
+                onChange={(e) => setFilters(
+                  [
+                    {
+                      field: 'propertyType',
+                      operator: 'eq',
+                      value: e.target.value,
+                    },
+                  ],
+                  'replace',
+                )}
+              >
+                <MenuItem value="">All</MenuItem>
+                {['Apartment', 'Villa', 'Farmhouse', 'Condos', 'Townhouse', 'Duplex', 'Studio', 'Chalet'].map((type) => (
+                  <MenuItem key={type} value={type.toLowerCase()}>{type}</MenuItem>
+                ))}
+              </Select>
             </Box>
+            <CustomButton title="Add Property" handleClick={() => navigate('/properties/create')} backgroundColor="#475BE8" color="#FCFCFC" icon={<Add />} />
           </Box>
         </Stack>
-      </Box>
-      <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <Typography fontSize={25} fontWeight={700} color="#11142d">All Properties</Typography>
-        <CustomButton title="Add Property" handleClick={() => navigate('/properties/create')} backgroundColor="#475be8" color="#FCFCFC" icon={<Add />} />
-        <TextField variant="outlined" color="info" placeholder="Search by Title" value={currentFilterValues.title} onChange={(e) => { title_handler(e) }} />
-        <Select variant="outlined" color="info" inputProps={{ 'aria-label': 'Without label' }} defaultValue="" value={currentFilterValues.propertyType} displayEmpty required
-          onChange={(e) => {
-            // @ts-ignore
-            propertyType_handler(e)
-          }}
-        >
-          <MenuItem value="">All</MenuItem>
-          {['Apartment', 'Villa', 'Farmhouse', 'Condos', 'Townhouse', 'Duplex', 'Studio', 'Chalet'].map((type) => {
-            return (
-              <MenuItem key={type} value={type.toLowerCase()}>{type}</MenuItem>
-            )
-          })}
-        </Select>
-      </Stack>
-      <Box mt="20px" sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}>
-        {allProperties.map((property) => {
+        {allProperties?.map((property) => {
           return (
-            <PropertyCard key={property._id} id={property._id} title={property.title} price={property.price} location={property.location} photo={property.photo} />
-          )
+            <PropertyCard key={property._id} id={property._id} title={property.title} location={property.location} price={property.price} photo={property.photo} />
+          );
         })}
       </Box>
-      {allProperties.length > 0 && (
-        <Box display="flex" gap={2} mt={3} flexWrap="wrap" >
-          <CustomButton title="Previous" handleClick={() => setCurrent((prev) => prev - 1)} backgroundColor="#475be8" color="#FCFCFC" disabled={!(current > 1)} />
+      {allProperties.length ? (
+        <Box display="flex" gap={2} mt={3} flexWrap="wrap">
+          <CustomButton title="Previous" handleClick={() => setCurrent((prev) => prev - 1)} backgroundColor="#475BE8" color="#FCFCFC" disabled={!(current > 1)} />
           <Box display={{ xs: 'hidden', sm: 'flex' }} alignItems="center" gap="5px">
-            Page{`  `}<strong>{current} of {pageCount}</strong>
+            Page{' '}<strong> {current} of {pageCount} </strong>
           </Box>
           <CustomButton title="Next" handleClick={() => setCurrent((prev) => prev + 1)} backgroundColor="#475BE8" color="#FCFCFC" disabled={current === pageCount} />
-          <Select variant="outlined" color="info" displayEmpty required inputProps={{ 'aria-label': 'Without label' }} defaultValue={10} value="" onChange={() => { }}>
-            {[10, 20, 30, 40, 50].map((size) => {
-              return (
-                <MenuItem key={size} value={size}>Show {size}</MenuItem>
-              )
-            })}
+          <Select variant="outlined" color="info" displayEmpty required inputProps={{ 'aria-label': 'Without label' }} defaultValue={10} onChange={(e) => setPageSize(e.target.value ? Number(e.target.value) : 10)} >
+            {[10, 20, 30, 40, 50].map((size) => (
+              <MenuItem key={size} value={size}>Show {size}</MenuItem>
+            ))}
           </Select>
         </Box>
-      )}
+      ) : null}
     </Box>
   )
 }
