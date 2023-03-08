@@ -1,9 +1,10 @@
 import { Add } from '@mui/icons-material';
-import { useTable } from "@pankod/refine-core";
+import { useTable, HttpError } from "@pankod/refine-core";
 import { Box, Stack, Typography, TextField, Select, MenuItem } from "@pankod/refine-mui";
 import { useNavigate } from "@pankod/refine-react-router-v6";
 import { PropertyCard, CustomButton } from "components";
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
+
 
 const AllProperties = () => {
   const navigate = useNavigate();
@@ -20,13 +21,18 @@ const AllProperties = () => {
   }
 
   const currentFilterValues = useMemo(() => {
-    const logicalFilters = filters.flatMap((item) => {
-      return ('field' in item ? item : [])
-    })
+    const logicalFilters = filters.flatMap((item) => ('field' in item ? item : []));
+
+    const title = logicalFilters.find((item) => {
+      return item.field === 'title';
+    })?.value || '';
+    const propertyType = logicalFilters.find((item) => {
+      return item.field === 'propertyType';
+    })?.value || '';
+
     return {
-      title: logicalFilters.find((item) => {
-        return item.field === 'title';
-      })?.value || '',
+      title,
+      propertyType,
     }
   }, [filters])
 
@@ -36,6 +42,10 @@ const AllProperties = () => {
 
   const title_handler = (e: React.BaseSyntheticEvent) => {
     setFilters([{ field: 'title', operator: 'contains', value: e.currentTarget.value ? e.currentTarget.value : undefined }])
+  }
+  const propertyType_handler = (e: React.BaseSyntheticEvent) => {
+    // @ts-ignore
+    setFilters([{ field: 'propertyType', operator: 'eq', value: e.target.value }, 'replace'])
   }
   return (
     <Box>
@@ -55,8 +65,20 @@ const AllProperties = () => {
         <Typography fontSize={25} fontWeight={700} color="#11142d">All Properties</Typography>
         <CustomButton title="Add Property" handleClick={() => navigate('/properties/create')} backgroundColor="#475be8" color="#FCFCFC" icon={<Add />} />
         <TextField variant="outlined" color="info" placeholder="Search by Title" value={currentFilterValues.title} onChange={(e) => { title_handler(e) }} />
-        <Select variant="outlined" color="info" displayEmpty required inputProps={{ 'aria-label': 'Without label' }} defaultValue="" value="" onChange={() => { }} >
+        <Select variant="outlined" color="info" inputProps={{ 'aria-label': 'Without label' }} defaultValue="" value={currentFilterValues.propertyType} displayEmpty required
+          onChange={(e) => {
+            // @ts-ignore
+            propertyType_handler(e)
+          }}
+        >
           <MenuItem value="">All</MenuItem>
+          {['Apartment', 'Villa', 'Farmhouse', 'Condos', 'Townhouse', 'Duplex', 'Studio', 'Chalet'].map((type) => {
+            console.log(`🇦🇹%call-properties.tsx:76 - type`, 'font-weight:bold; background:#b04f00;color:#fff;'); //DELETEME
+            console.log(type); // DELETEME
+            return (
+              <MenuItem key={type} value={type.toLowerCase()}>{type}</MenuItem>
+            )
+          })}
         </Select>
       </Stack>
       <Box mt="20px" sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}>
