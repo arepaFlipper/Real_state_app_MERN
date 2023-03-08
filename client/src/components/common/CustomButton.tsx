@@ -1,7 +1,7 @@
 import { Button } from '@pankod/refine-mui';
 import { CustomButtonProps } from "interfaces/common";
 
-const CustomButton = ({ type, title, handleClick, backgroundColor, fullWidth, color, icon }: CustomButtonProps) => {
+const CustomButton = ({ type, title, handleClick, backgroundColor, fullWidth, color, icon, disabled }: CustomButtonProps) => {
   const sx = {
     flex: fullWidth ? 1 : 'unset',
     padding: '10px 15px',
@@ -19,7 +19,7 @@ const CustomButton = ({ type, title, handleClick, backgroundColor, fullWidth, co
   }
   const button_type = type === "submit" ? 'submit' : "button";
   return (
-    <Button onClick={handleClick} type={button_type} sx={sx}>
+    <Button onClick={handleClick} type={button_type} sx={sx} disabled={disabled}>
       {icon}
       {title}
     </Button>
