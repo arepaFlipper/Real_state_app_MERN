@@ -1,8 +1,9 @@
-import { Add } from '@mui/icons-material'
+import { Add } from '@mui/icons-material';
 import { useTable } from "@pankod/refine-core";
 import { Box, Stack, Typography, TextField, Select, MenuItem } from "@pankod/refine-mui";
 import { useNavigate } from "@pankod/refine-react-router-v6";
 import { PropertyCard, CustomButton } from "components";
+import { useMemo } from 'react';
 
 const AllProperties = () => {
   const navigate = useNavigate();
@@ -18,8 +19,23 @@ const AllProperties = () => {
     setSorter([{ field, order: currentPrice === 'asc' ? 'desc' : 'asc' }]);
   }
 
+  const currentFilterValues = useMemo(() => {
+    const logicalFilters = filters.flatMap((item) => {
+      return ('field' in item ? item : [])
+    })
+    return {
+      title: logicalFilters.find((item) => {
+        return item.field === 'title';
+      })?.value || '',
+    }
+  }, [filters])
+
   if (isLoading) {
     <Typography>Loading...</Typography>
+  }
+
+  const title_handler = (e: React.BaseSyntheticEvent) => {
+    setFilters([{ field: 'title', operator: 'contains', value: e.currentTarget.value ? e.currentTarget.value : undefined }])
   }
   return (
     <Box>
@@ -38,7 +54,7 @@ const AllProperties = () => {
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <Typography fontSize={25} fontWeight={700} color="#11142d">All Properties</Typography>
         <CustomButton title="Add Property" handleClick={() => navigate('/properties/create')} backgroundColor="#475be8" color="#FCFCFC" icon={<Add />} />
-        <TextField variant="outlined" color="info" placeholder="Search by Title" value="" onChange={() => { }} />
+        <TextField variant="outlined" color="info" placeholder="Search by Title" value={currentFilterValues.title} onChange={(e) => { title_handler(e) }} />
         <Select variant="outlined" color="info" displayEmpty required inputProps={{ 'aria-label': 'Without label' }} defaultValue="" value="" onChange={() => { }} >
           <MenuItem value="">All</MenuItem>
         </Select>
