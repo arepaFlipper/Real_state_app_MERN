@@ -3,7 +3,6 @@ import { FormProps } from 'interfaces/common';
 import CustomButton from './CustomButton';
 
 const Form = ({ type, register, handleSubmit, handleImageChange, formLoading, onFinishHandler, propertyImage }: FormProps) => {
-  const { name_location, onChange_location, onBlur_location, ref_location } = register('location', { required: true });
   const aparment_values = ["aparment", "villa", "farmhouse", "condos", "townhouse", "duplex", "studio", "chalet"];
   return (
     <Box>
