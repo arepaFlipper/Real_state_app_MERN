@@ -10,6 +10,14 @@ const AllProperties = () => {
   const { tableQueryResult: { data, isLoading, isError }, current, setCurrent, setPageSize, pageCount, sorter, setSorter, filters, setFilters } = useTable();
   const allProperties = data?.data ?? [];
 
+  const currentPrice = sorter.find((item) => {
+    return item.field === 'price';
+  })?.order;
+
+  const toggleSort = (field: string) => {
+    setSorter([{ field, order: currentPrice === 'asc' ? 'desc' : 'asc' }]);
+  }
+
   if (isLoading) {
     <Typography>Loading...</Typography>
   }
@@ -22,7 +30,7 @@ const AllProperties = () => {
           </Typography>
           <Box mb={2} mt={3} display="flex" width="84%" justifyContent="space-between" flexWrap="wrap">
             <Box display="flex" gap={2} flexWrap="wrap" mb={{ xs: '20px', sm: 0 }}>
-              <CustomButton title={`Sort price`} handleClick={() => { }} backgroundColor="#475be8" color="#FCFCFC" />
+              <CustomButton title={`Sort price ${currentPrice === 'asc' ? '↑' : '↓'}`} handleClick={() => { toggleSort('price') }} backgroundColor="#475be8" color="#FCFCFC" />
             </Box>
           </Box>
         </Stack>
