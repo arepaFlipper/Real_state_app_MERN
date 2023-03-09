@@ -1,5 +1,5 @@
 import express from "express";
-import { createProperty, deleteProperty, getAllProperties, getPropertyDetail, updateProperty } from "../controllers/property.controller.js";
+import { createProperty, deleteProperty, getAllProperties, getPropertyDetail, updateProperty } from "../controller/property.controller.js";
 
 const router = express.Router();
 
