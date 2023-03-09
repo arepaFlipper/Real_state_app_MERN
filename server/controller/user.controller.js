@@ -1,4 +1,5 @@
-import User from '../mongodb/models/user.js'
+import User from '../mongodb/models/user.js';
+import { ObjectId } from 'mongoose';
 
 const getAllUsers = async (req, res) => {
   try {
@@ -17,7 +18,6 @@ const createUser = async (req, res) => {
     if (userExists) {
       return res.status(200).json(userExists);
     }
-
     const newUser = await User.create({ name, email, avatar });
 
     return res.status(200).json(newUser);
@@ -27,6 +27,24 @@ const createUser = async (req, res) => {
 
   }
 };
-const getUserInfoByID = async (req, res) => { };
+const getUserInfoByID = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (id != "undefined") {
+      const user = await User.findOne({ _id: id }).populate('allProperties');
+      if (user) {
+        res.status(200).json(user);
+      } else {
+        res.status(404).json({ message: 'User not found' });
+      }
+
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to get user properties, please try again later' });
+
+  }
+};
 
 export { getAllUsers, createUser, getUserInfoByID };
