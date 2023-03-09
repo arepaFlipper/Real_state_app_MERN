@@ -1,8 +1,28 @@
-import React from 'react'
+import { useList } from '@pankod/refine-core';
+import { Box, Typography } from '@pankod/refine-mui';
+
+import { AgentCard } from 'components';
 
 const Agents = () => {
+  const { data, isLoading, isError } = useList({ resource: 'users' });
+  const allAgents = data?.data ?? [];
+  console.log(`📧%cagent.tsx:9 - allAgents`, 'font-weight:bold; background:#2fd000;color:#fff;'); //DELETEME
+  console.log(allAgents); // DELETEME
+
+  if (isLoading) return <div>loading...</div>
+  if (isError) return <div>error</div>
+
   return (
-    <div>Agents</div>
+    <Box>
+      <Typography fontSize={25} fontWeight={700} color="#11142D">Agents List </Typography>
+      <Box mt="20px" sx={{ display: "flex", flexWrap: "wrap", gap: "20px", background: "#FCFCFC" }}>
+        {allAgents.map((agent) => {
+          return (
+            <AgentCard key={agent._id} id={agent._id} name={agent.name} email={agent.email} avatar={agent.avatar} noOfProperties={agent.allProperties.length} />
+          )
+        })}
+      </Box>
+    </Box>
   )
 }
 
