@@ -10,7 +10,7 @@ export interface CustomButtonProps {
 }
 
 export interface ProfileProps {
-  trype: string,
+  type: string,
   name: string,
   avatar: string,
   email: string,
