@@ -19,7 +19,7 @@ export interface ProfileProps {
 
 export interface PropertyProps {
   _id: string,
-  titile: string,
+  title: string,
   description: string,
   location: string,
   price: string,
