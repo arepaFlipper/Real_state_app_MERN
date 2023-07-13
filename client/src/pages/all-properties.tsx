@@ -8,8 +8,6 @@ const AllProperties = () => {
   const navigate = useNavigate();
 
   const { tableQueryResult: { data, isLoading, isError } } = useTable();
-  console.log(`🎡%call-properties.tsx:11 - data`, 'font-weight:bold; background:#38c700;color:#fff;'); //DELETEME
-  console.log(data); // DELETEME
 
   return (
     <Box>
