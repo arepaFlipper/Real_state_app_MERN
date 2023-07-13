@@ -73,8 +73,6 @@ const AllProperties = () => {
         >
           <MenuItem value="">All</MenuItem>
           {['Apartment', 'Villa', 'Farmhouse', 'Condos', 'Townhouse', 'Duplex', 'Studio', 'Chalet'].map((type) => {
-            console.log(`🇦🇹%call-properties.tsx:76 - type`, 'font-weight:bold; background:#b04f00;color:#fff;'); //DELETEME
-            console.log(type); // DELETEME
             return (
               <MenuItem key={type} value={type.toLowerCase()}>{type}</MenuItem>
             )
