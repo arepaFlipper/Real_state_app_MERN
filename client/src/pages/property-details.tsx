@@ -12,8 +12,6 @@ const PropertyDetails = () => {
   const { queryResult } = useShow();
 
   const { data, isLoading, isError } = queryResult;
-  console.log(`🇬🇱%cproperty-details.tsx:15 - data`, 'font-weight:bold; background:#48b700;color:#fff;'); //DELETEME
-  console.log(data); // DELETEME
   return (
     <div>PropertyDetails</div>
   )
