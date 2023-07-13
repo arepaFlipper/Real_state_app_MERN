@@ -6,8 +6,6 @@ import { AgentCard } from 'components';
 const Agents = () => {
   const { data, isLoading, isError } = useList({ resource: 'users' });
   const allAgents = data?.data ?? [];
-  console.log(`📧%cagent.tsx:9 - allAgents`, 'font-weight:bold; background:#2fd000;color:#fff;'); //DELETEME
-  console.log(allAgents); // DELETEME
 
   if (isLoading) return <div>loading...</div>
   if (isError) return <div>error</div>
